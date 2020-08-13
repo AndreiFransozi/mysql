@@ -1,0 +1,27 @@
+create database escola;
+use escola;
+create table Professores(
+id_Professores int not null auto_increment,
+nome_professor varchar(255),
+data_nasc date,
+materia varchar(255),
+turma varchar(255),
+primary key(id_Professores)
+);
+create table aluno(
+id_aluno int not null auto_increment,
+nome varchar(255),
+matricula varchar(255),
+turma varchar(255),
+primary key(id_aluno)
+);
+insert into Professores
+(nome_professor, data_nasc, materia ,turma)
+values
+("Lola", "1990", "História", "1 fase");
+insert into aluno
+(nome, matricula, turma)
+values
+("", "", "");
+
+drop database escola;
