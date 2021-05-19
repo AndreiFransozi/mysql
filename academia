@@ -1,0 +1,56 @@
+create database academia2020;
+use academia;
+
+create table aluno(
+id int not null auto_increment,
+nome varchar(100),
+end varchar(255),
+telefone varchar(80),
+codMatricula int,
+peso float,
+altura float,
+datanasc date,
+primary key (id)
+);
+
+create table turma (
+idTurma int not null auto_increment,
+idAluno int not null auto_increment,
+idInstrutor int not null auto_increment,
+ativdade varchar(50),
+numalunos int,
+dataInicio date,
+dataFim date,
+horario time,
+foreign key (idAluno) references aluno(id),
+foreign key (idInstrutor) references instrutor(id),
+primary key (idTurma)
+);
+
+create table matricula (
+ id int not null auto_increment,
+ datamatricula date,
+ numfaltas int,
+ idAluno int not null auto_increment,
+ idTurma int not null auto_increment,
+ foreign key idAluno references aluno(id)
+ foreign key idTurma references turma(id)
+ primary key (idMatricula)
+);
+
+create table instrutor (
+id int not null auto_increment,
+nome varchar (100),
+rg varchar (13),
+dataNasc date,
+titulacao varchar (50),
+primary key (idInstrutor)
+);
+
+create table telefoneInstrutor (
+idInst int not null auto_increment
+telefone varchar (45)
+tipo varchar (45),
+foreign key (idInstrutor),
+primary key (telefone)
+);
