@@ -1,0 +1,68 @@
+create database locadoraAuto2020;
+use locadoraAuto2020;
+
+create table carro (
+    id int not null auto_increment,
+    placa varchar(8),
+    ano int,
+    marca varchar(50),
+    modelo varchar(50),
+    situacao varchar(40),
+    cor varchar(30),
+    primary key (id)
+);
+
+create table cliente(
+	id int not null auto_increment primary key ,
+    nome varchar(80),
+    cpf varchar (15),
+    endereco varchar(255),
+    dataNasc date,
+    cnh varchar(20),
+);
+    
+    create table locacao(
+    idCarro int not  null,
+    idCliente int not null,
+    dataLocacao date,
+    horaLocacao time,
+    primary key(idCarro, idClient),
+    foreign key(idCarro) references carro(id),
+    foreign key(idCliente) references cliente(id)
+    );
+    
+    create table categoria (
+    id int not null auto_increment,
+    nome varchar (80),
+    descricao varchar (255),
+    preco float,
+    primary key (id)
+    );
+    
+    alter table carro
+    add column (idCategoria int);
+    
+    alter table carro
+add constraint fk_categoria;
+    foreign key idCategoria references categoria(id);
+);
+    create table oficina(
+	id int not null auto_increment primary key ,
+    nome varchar(80),
+    contato varchar (80),
+    fone varchar(5),
+    tipo varchar(50),
+    );
+    
+    create table manutencao(
+    idCarro int not null,
+    idOficina int not null,
+    valor float,
+    dataInicio date,
+    descricaoServico varchar(255)
+    foreign key(idCarro) references carro(id),
+    foreign key(idOficina) references oficina(id)
+    primary key (idCarro, idOficina),
+    );
+    
+    drop table manutencao;
