@@ -1,0 +1,117 @@
+create database locadoraAuto2020;
+use locadoraAuto;
+
+create table carro (
+    id int not null auto_increment,
+    placa varchar(8),
+    ano int,
+    marca varchar(50),
+    modelo varchar(50),
+    situacao varchar(40),
+    cor varchar(30),
+    primary key (id)
+);
+
+create table cliente(
+	id int not null auto_increment primary key ,
+    nome varchar(80),
+    cpf varchar (15),
+    endereco varchar(255),
+    dataNasc date,
+    cnh varchar(20),
+    );
+    
+    create table locacao(
+    idCarro int not  null auto_increment primary key,
+    idCliente int not null,
+    datahoraLocacao datetime,
+    primary key(idCarro, idClient),
+    foreign key(idCarro) references carro(id),
+    foreign key(idCliente) references cliente(id)
+    );
+    
+    create table categoria (
+    id int not null auto_increment,
+    nome varchar (80),
+    descricao varchar (255),
+    preco float,
+    primary key (id)
+    );
+    
+    alter table carro
+    add column (idCategoria int);
+    
+    alter table carro
+    add constraint fk_categoria;
+    'foreign' key idCategoria references categoria(id);
+);
+    create table oficina(
+	id int not null auto_increment primary key ,
+    nome varchar(80),
+    contato varchar (80),
+    fone varchar(5),
+    tipo varchar(50),
+    ),
+    
+    create table manutencao(
+    idCarro int not null, auto_increment,
+    idOficina int not null,
+    valor float,
+    dataInicio date,
+    descricaoServico varchar(255)
+    foreign key(idCarro) references carro(id),
+    foreign key(idOficina) references oficina(id)
+    primary key (id),auto_increment,
+    );
+    insert into cliente (nome,cpf,endereco,datanasc,cnh) VALUES
+    ("cli1","111.111.111-11","end1","2010-01-20","11111"),
+    ("cli2","222.222.222-22","end2","2010-02-21","22222"),
+    ("cli3","333.333.333-33","end3","2010-01-22","33333"),
+    ("cli4","444.444.444-44","end4","2010-04-23","44444");
+    insert into categoria (nome,descricao,preco) VALUES
+    ("pickup","desc cat 1","100.00"),
+    ("carro","desc cat 2","101.00"),
+    ("caminhão","desc cat 3","102.00"),
+    ("cat4","desc cat 4","103.00");
+    insert into oficina (nome,contato,fone,tipo) values
+    ("nome1","contato1","fone1","tipo"),
+    ("nome2","contato2","fone2","tipo"),
+    ("nome3","contato3","fone3","tipo"),
+    ("nome4","contato4","fone4","tipo");
+    insert into carro (placa,ano,modelo,marca,situacao,cor,idCat) values
+    ("ABC-1111","2010","modelo1","Toyota","disponivel","cor1",1),
+    ("ABC-2222","2010","modelo2","Renault","em manutenção","cor2",2),
+    ("ABC-3333","2010","modelo3","Toyota,"disponivel","cor3",3),
+    ("ABC-4444","2010","modelo4","Fiat,"locado","cor4",4),
+    insert into locacao(id,idCarro,idCliente, dataHoralocacao);
+    (1,1,"2020.01.11","11:00"),
+    (1,2,"2020.01.12","12:00"),
+    (1,3,"2020.01.13","13:00"),
+    (2,4,"2020.01.24","20:50"),
+    (2,5,"2020.01.25","20:25");
+    insert into manutencao(idCarro,idOficina,valor,dataInicio,descricaoservico)"
+    (1,1,511.00,"2020-04-11","serviço11"),
+    (2,2,522.00,"2020-04-22","serviço22"),
+    (3,3,531.00,"2020-04-31","serviço31"),
+    (4,4,544.00,"2020-04-11","serviço44");
+	
+    -- rgistrar a locação do carro com placa ABC-1111
+    -- atulizar a situação dele como locado
+   -- para o cliente 6 atualizar data hora 2020/04/16
+   insert into locacao (idCarro,idCliente,dataHoralocacao)values
+   (1,5,"2020-04-16 14:00:00);
+   update carro set situacao locado where "id"=1;
+   -- todos os carros da cat 1 devem ser enviados para manutenção;
+   update carro set situacao = "em manutençao" where idCategoria=1;
+   -- excluir a categoria cat 3 do sistema;
+   delete from categoria where nome = "cat3";
+    delete from categoria where nome = "cat4";
+    -- impedimento;
+    select ano,marca,situacao,cor,modelo
+      from carro;
+    where(situacao = "disponivel" or situacao "locado")
+    and (marca = "Renault");
+    -- valor de um aluguel de um automovel por 5 dias
+    select preco*5 as
+    from categoria
+    where nome "pickup"
